@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { AppGlobalState } from "../../store/types";
 import { CellState, CellValue, CellValueEnum } from "../../types";
 import { ButtonStyled } from "./ButtonStyledComponents";
 import CellSpan from "./CellSpan";
@@ -44,8 +46,14 @@ const Button: React.FC<ButtonProps> = ({
     }
   };
 
+  const StyledState = useSelector((state: AppGlobalState) => state.styles);
+
   return (
     <ButtonStyled
+      style={{
+        backgroundColor:
+          StyledState.boardStyle === "classic" ? "#c2c2c2" : "#1FA816",
+      }}
       className={`Button ${
         state === CellState.visible ? "visible" : ""
       } value-${value} ${red ? "red" : ""}`}

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppGlobalState } from "./store/types";
 import {
   CenterDiv,
-  DifficultyButton,
   DifficultyButtonDiv,
   DifficultyDiv,
   MainTitle,
@@ -13,86 +12,59 @@ import {
   ReduxBtn,
 } from "./AppStyledComponents";
 import {
-  setDifficultyTo,
   setGameConfig,
+  setPlayerTo,
   setRunningTo,
 } from "./store/actions/AppActions";
-import { DifficultyValueEnum } from "./types";
-import { useState } from "react";
+import { difficultyConfig } from "./utils/DifficultyConfig";
+import { DifficultyArr, StylesArr } from "./data/Buttons";
+import MenuButton from "./components/atoms/MenuButton";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const AppState = useSelector((state: AppGlobalState) => state.app);
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState<string>(AppState.difficulty);
 
-  const setDifficulty = (value: string) => {
-    dispatch(setDifficultyTo(value));
-    setSelected(value);
-  };
+  const [name, setName] = useState<string>("");
+  const [formError, setFormError] = useState<boolean>(false);
 
-  const gameConfig = (difficult: string) => {
-    switch (difficult) {
-      case DifficultyValueEnum.normal:
-        return {
-          MAX_ROWS: 12,
-          MAX_COLS: 12,
-          NO_OF_BOMBS: 14,
-        };
-      case DifficultyValueEnum.hard:
-        return {
-          MAX_ROWS: 18,
-          MAX_COLS: 18,
-          NO_OF_BOMBS: 20,
-        };
-      default:
-        return {
-          MAX_ROWS: 9,
-          MAX_COLS: 9,
-          NO_OF_BOMBS: 10,
-        };
-    }
-  };
+  useEffect(() => {
+    setName(AppState.player);
+  }, [AppState.player]);
 
   const startGame = () => {
-    dispatch(setGameConfig(gameConfig(AppState.difficulty)));
+    if (name.length === 0) {
+      setFormError(true);
+      return;
+    }
+    dispatch(setPlayerTo(name));
+    dispatch(setGameConfig(difficultyConfig(AppState.difficulty)));
     dispatch(setRunningTo());
   };
 
   if (!AppState.isRunning) {
     return (
       <NewGameDiv>
-        <MainTitle>Buscaminas</MainTitle>
-        <Input />
+        <MainTitle>Menu</MainTitle>
+        <Input
+          setName={setName}
+          setFormError={setFormError}
+          formError={formError}
+        />
         <DifficultyDiv>
           <h2>Seleccionar Dificultad</h2>
           <DifficultyButtonDiv>
-            <DifficultyButton
-              style={{
-                backgroundColor:
-                  selected === DifficultyValueEnum.easy ? "blue" : "grey",
-              }}
-              onClick={() => setDifficulty(DifficultyValueEnum.easy)}
-            >
-              Facil
-            </DifficultyButton>
-            <DifficultyButton
-              style={{
-                backgroundColor:
-                  selected === DifficultyValueEnum.normal ? "blue" : "grey",
-              }}
-              onClick={() => setDifficulty(DifficultyValueEnum.normal)}
-            >
-              Normal
-            </DifficultyButton>
-            <DifficultyButton
-              style={{
-                backgroundColor:
-                  selected === DifficultyValueEnum.hard ? "blue" : "grey",
-              }}
-              onClick={() => setDifficulty(DifficultyValueEnum.hard)}
-            >
-              Dificil
-            </DifficultyButton>
+            {DifficultyArr.map((btn: any, index: number) => {
+              return <MenuButton {...btn} />;
+            })}
+          </DifficultyButtonDiv>
+        </DifficultyDiv>
+        <DifficultyDiv>
+          <h2>Seleccionar Estilo</h2>
+          <DifficultyButtonDiv>
+            {StylesArr.map((btn: any, index: number) => {
+              return <MenuButton {...btn} />;
+            })}
           </DifficultyButtonDiv>
         </DifficultyDiv>
         <ReduxBtn onClick={() => startGame()}>Empezar Juego</ReduxBtn>

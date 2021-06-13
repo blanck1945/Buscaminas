@@ -16,9 +16,9 @@ export const difficultyConfig = (value: string) => {
       };
     case DifficultyValueEnum.hard:
       return {
-        MAX_COLS: 15,
-        MAX_ROWS: 15,
-        NO_OF_BOMBS: 24,
+        MAX_COLS: 16,
+        MAX_ROWS: 16,
+        NO_OF_BOMBS: 28,
       };
   }
 };

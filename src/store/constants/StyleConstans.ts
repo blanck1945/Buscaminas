@@ -1,2 +1,1 @@
-export const SET_TO_JUNGLE = "SET_TO_JUNGLE";
-export const SET_TO_CLASSIC = "SET_TO_CLASSIC";
+export const SET_BOARD_STYLE_TO = "SET_BOARD_STYLE_TO";

@@ -9,6 +9,7 @@ import {
   CellValue,
   DifficultyValueEnum,
   GameStateEnum,
+  StylesValuesEnum,
 } from "../types";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,10 @@ import {
 import { difficultyConfig } from "../utils/DifficultyConfig";
 import styled from "styled-components";
 import Modal from "./atoms/Modal";
+import {
+  JungleContainer,
+  JungleHeaderDiv,
+} from "./boardStyles/JungleStyledComponents";
 
 const setColumns = (ref: string) => {
   switch (ref) {
@@ -42,13 +47,26 @@ const setColumns = (ref: string) => {
 const ClassicBoard = () => {
   const GameState = useSelector((state: AppGlobalState) => state.game);
   const AppState = useSelector((state: AppGlobalState) => state.app);
+  const StyleState = useSelector((state: AppGlobalState) => state.styles);
   const dispatch = useDispatch();
   const [counter, setCounter] = useState<number>(0);
   const [modal, setModal] = useState<boolean>(false);
 
+  console.log(AppState.player);
+
   const BodyDiv = styled.div`
     ${({ theme }) => {
       return theme.setBorderMixin("#7b7b7b", "white");
+    }}
+    display: grid;
+    grid-template-columns: repeat(${setColumns(AppState.difficulty)}, 1fr);
+    grid-template-rows: repeat(${setColumns(AppState.difficulty)}, 1fr);
+    margin-top: 1.6rem;
+  `;
+
+  const JungleBodyDiv = styled.div`
+    ${({ theme }) => {
+      return theme.setBorderMixin(theme.lGreen, theme.mGreen);
     }}
     display: grid;
     grid-template-columns: repeat(${setColumns(AppState.difficulty)}, 1fr);
@@ -204,7 +222,6 @@ const ClassicBoard = () => {
     dispatch(setTimeTo(0));
     dispatch(setBombsCounterTo(10));
     dispatch(setCellsTo(generateCells(difficultyConfig(AppState.difficulty))));
-    //dispatch(setCounterTo(0));
     setCounter(0);
   };
 
@@ -213,7 +230,7 @@ const ClassicBoard = () => {
       dispatch(
         setCellsTo(generateCells(difficultyConfig(AppState.difficulty)))
       );
-      //dispatch(setCounterTo(1));
+      dispatch(setBombsCounterTo(AppState.config.NO_OF_BOMBS));
       setCounter(1);
     }
 
@@ -251,19 +268,34 @@ const ClassicBoard = () => {
 
   return (
     <>
-      {modal ? <Modal /> : null}
-      <ContainerDiv>
-        <HeaderDiv>
-          <NumberDisplay value={GameState.bombCounter} />
-          <FaceDiv onClick={handleFaceClick}>
-            <span role="img" aria-label="face">
-              {GameState.face}
-            </span>
-          </FaceDiv>
-          <NumberDisplay value={GameState.time} />
-        </HeaderDiv>
-        <BodyDiv>{renderCells()}</BodyDiv>
-      </ContainerDiv>
+      {modal ? <Modal func={handleFaceClick} closeModal={setModal} /> : null}
+      {StyleState.boardStyle === StylesValuesEnum.classic ? (
+        <ContainerDiv>
+          <HeaderDiv>
+            <NumberDisplay value={GameState.bombCounter} />
+            <FaceDiv onClick={handleFaceClick}>
+              <span role="img" aria-label="face">
+                {GameState.face}
+              </span>
+            </FaceDiv>
+            <NumberDisplay value={GameState.time} />
+          </HeaderDiv>
+          <BodyDiv>{renderCells()}</BodyDiv>
+        </ContainerDiv>
+      ) : (
+        <JungleContainer>
+          <JungleHeaderDiv>
+            <NumberDisplay value={GameState.bombCounter} />
+            <FaceDiv onClick={handleFaceClick}>
+              <span role="img" aria-label="face">
+                {GameState.face}
+              </span>
+            </FaceDiv>
+            <NumberDisplay value={GameState.time} />
+          </JungleHeaderDiv>
+          <JungleBodyDiv>{renderCells()}</JungleBodyDiv>
+        </JungleContainer>
+      )}
     </>
   );
 };

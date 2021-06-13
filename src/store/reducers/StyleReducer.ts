@@ -1,21 +1,17 @@
 import * as StylesConstants from "../constants/StyleConstans";
+import { StylesValuesEnum } from "../../types";
 import { StylesInitialStateInterface } from "../types";
 
 export const StylesInitialState: StylesInitialStateInterface = {
-  boardStyle: "clasic",
+  boardStyle: StylesValuesEnum.classic,
 };
 
 const StylesReducer = (state = StylesInitialState, action: any) => {
   switch (action.type) {
-    case StylesConstants.SET_TO_JUNGLE:
+    case StylesConstants.SET_BOARD_STYLE_TO:
       return {
         ...state,
-        boardStyle: "jungle",
-      };
-    case StylesConstants.SET_TO_CLASSIC:
-      return {
-        ...state,
-        boardStyle: "classic",
+        boardStyle: action.payload,
       };
     default:
       return state;

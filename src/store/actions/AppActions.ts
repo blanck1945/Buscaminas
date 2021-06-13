@@ -34,3 +34,12 @@ export const setCounterTo = (payload: any) => {
     payload,
   };
 };
+
+//  -------- Player Actions -------------
+
+export const setPlayerTo = (payload: any) => {
+  return {
+    type: AppConstants.SET_PLAYER_NAME,
+    payload,
+  };
+};

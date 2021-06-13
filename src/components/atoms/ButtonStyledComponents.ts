@@ -11,9 +11,9 @@ export const ButtonStyled = styled.button`
   align-items: center;
   display: flex;
   font-weight: bold;
-  height: 30px;
+  height: 3rem;
   justify-content: center;
-  width: 30px;
+  width: 3rem;
 
   &.visible {
     border-color: #7b7b7b;
@@ -25,8 +25,8 @@ export const ButtonStyled = styled.button`
   }
 
   span {
-    font-size: 12px;
-    margin-left: 2px;
+    font-size: 1.2rem;
+    margin-left: 0.2rem;
   }
 
   &.value-1 {

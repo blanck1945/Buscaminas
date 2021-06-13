@@ -44,6 +44,11 @@ export enum DifficultyValueEnum {
   hard = "hard",
 }
 
+export enum StylesValuesEnum {
+  classic = "classic",
+  jungle = "cungle",
+}
+
 export interface GameConfig {
   MAX_ROWS: string;
   MAX_COLS: string;
