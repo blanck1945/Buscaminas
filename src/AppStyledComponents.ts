@@ -1,20 +1,27 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  width: 100%;
+  height: 92.9vh;
+  background-color: #24478f;
+  padding-top: 5rem;
+`;
+
 export const NewGameDiv = styled.div`
   width: 30rem;
-  height: 38rem;
+  height: 45rem;
   margin: auto;
-  margin-top: 3rem;
   display: flex;
   flex-direction: column;
-  background-color: grey;
+  background-color: #001a33;
   border-radius: 0.4rem;
+  color: ${({ theme }) => theme.white};
 `;
 
 export const MainTitle = styled.h2`
+  padding-top: 0.5rem;
   font-size: ${(props) => props.theme.font3};
   text-align: center;
-  background-color: bisque;
 `;
 
 export const DifficultyDiv = styled.div`
@@ -24,7 +31,6 @@ export const DifficultyDiv = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: darkgoldenrod;
 `;
 
 export const DifficultyButtonDiv = styled.div`
@@ -39,9 +45,15 @@ export const ReduxBtn = styled.button`
   width: 50%;
   height: 3.5rem;
   border-radius: 1rem;
-  background-color: goldenrod;
+  border: none;
   cursor: pointer;
   margin: auto;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: tomato;
+    color: ${({ theme }) => theme.white};
+  }
 `;
 
 export const CenterDiv = styled.div`

@@ -8,6 +8,7 @@ export const GameInitialState: AppInitialStateInterface = {
   difficulty: DifficultyValueEnum.easy,
   config: "",
   counter: 0,
+  scores: undefined,
 };
 
 export const AppReducer = (state = GameInitialState, action: any) => {
@@ -16,6 +17,11 @@ export const AppReducer = (state = GameInitialState, action: any) => {
       return {
         ...state,
         isRunning: !state.isRunning ? true : false,
+      };
+    case AppConstants.SET_SCORES_TO:
+      return {
+        ...state,
+        scores: action.payload,
       };
     case AppConstants.SET_PLAYER_NAME:
       return {

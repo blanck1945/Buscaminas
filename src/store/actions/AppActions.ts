@@ -8,6 +8,15 @@ export const setRunningTo = () => {
   };
 };
 
+//  -------- Scores Actions -------------
+
+export const setScoresTo = (payload: string) => {
+  return {
+    type: AppConstants.SET_SCORES_TO,
+    payload,
+  };
+};
+
 //  -------- Difficulty Actions -------------
 
 export const setDifficultyTo = (payload: string) => {

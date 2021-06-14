@@ -18,6 +18,7 @@ export interface AppInitialStateInterface {
   difficulty: DifficultyValueEnum.easy;
   config: any;
   counter: number;
+  scores: any;
 }
 
 export interface AppGlobalState {

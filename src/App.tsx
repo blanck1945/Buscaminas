@@ -10,16 +10,20 @@ import {
   MainTitle,
   NewGameDiv,
   ReduxBtn,
+  Container,
 } from "./AppStyledComponents";
 import {
   setGameConfig,
   setPlayerTo,
   setRunningTo,
+  setScoresTo,
 } from "./store/actions/AppActions";
 import { difficultyConfig } from "./utils/DifficultyConfig";
 import { DifficultyArr, StylesArr } from "./data/Buttons";
 import MenuButton from "./components/atoms/MenuButton";
 import { useEffect, useState } from "react";
+import { AxiosFetcher } from "./axios/axios";
+import { paths } from "./data/Router";
 
 const App = () => {
   const AppState = useSelector((state: AppGlobalState) => state.app);
@@ -27,6 +31,16 @@ const App = () => {
 
   const [name, setName] = useState<string>("");
   const [formError, setFormError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await AxiosFetcher(paths.scores);
+      dispatch(setScoresTo(data));
+    };
+    if (AppState.scores === undefined) {
+      fetchData();
+    }
+  }, [AppState.scores, dispatch]);
 
   useEffect(() => {
     setName(AppState.player);
@@ -44,40 +58,42 @@ const App = () => {
 
   if (!AppState.isRunning) {
     return (
-      <NewGameDiv>
-        <MainTitle>Menu</MainTitle>
-        <Input
-          setName={setName}
-          setFormError={setFormError}
-          formError={formError}
-        />
-        <DifficultyDiv>
-          <h2>Seleccionar Dificultad</h2>
-          <DifficultyButtonDiv>
-            {DifficultyArr.map((btn: any, index: number) => {
-              return <MenuButton {...btn} />;
-            })}
-          </DifficultyButtonDiv>
-        </DifficultyDiv>
-        <DifficultyDiv>
-          <h2>Seleccionar Estilo</h2>
-          <DifficultyButtonDiv>
-            {StylesArr.map((btn: any, index: number) => {
-              return <MenuButton {...btn} />;
-            })}
-          </DifficultyButtonDiv>
-        </DifficultyDiv>
-        <ReduxBtn onClick={() => startGame()}>Empezar Juego</ReduxBtn>
-      </NewGameDiv>
+      <Container>
+        <NewGameDiv>
+          <MainTitle>Menu</MainTitle>
+          <Input
+            setName={setName}
+            setFormError={setFormError}
+            formError={formError}
+          />
+          <DifficultyDiv>
+            <h2>Seleccionar Dificultad</h2>
+            <DifficultyButtonDiv>
+              {DifficultyArr.map((btn: any, index: number) => {
+                return <MenuButton {...btn} />;
+              })}
+            </DifficultyButtonDiv>
+          </DifficultyDiv>
+          <DifficultyDiv>
+            <h2>Seleccionar Estilo</h2>
+            <DifficultyButtonDiv>
+              {StylesArr.map((btn: any, index: number) => {
+                return <MenuButton {...btn} />;
+              })}
+            </DifficultyButtonDiv>
+          </DifficultyDiv>
+          <ReduxBtn onClick={() => startGame()}>Empezar Juego</ReduxBtn>
+        </NewGameDiv>
+      </Container>
     );
   }
 
   return (
-    <div>
+    <Container>
       <CenterDiv>
         <ClassicBoard />
       </CenterDiv>
-    </div>
+    </Container>
   );
 };
 

@@ -11,3 +11,5 @@ export const SET_DIFFICULTY_TO = "SET_DIFFICULTY_TO";
 export const SET_GAME_CONFIG = "SET_GAME_CONFIG";
 
 export const SET_COUNTER_TO = "SET_COUNTER_TO";
+
+export const SET_SCORES_TO = "SET_SCORES_TO";

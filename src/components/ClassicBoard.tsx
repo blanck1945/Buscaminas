@@ -52,8 +52,6 @@ const ClassicBoard = () => {
   const [counter, setCounter] = useState<number>(0);
   const [modal, setModal] = useState<boolean>(false);
 
-  console.log(AppState.player);
-
   const BodyDiv = styled.div`
     ${({ theme }) => {
       return theme.setBorderMixin("#7b7b7b", "white");
@@ -129,8 +127,8 @@ const ClassicBoard = () => {
           break;
         }
       }
-      dispatch(setGameStateTo(GameStateEnum.live));
     }
+    dispatch(setGameStateTo(GameStateEnum.live));
 
     const currentCell = newCells[rowParam][colParam];
 
@@ -218,10 +216,9 @@ const ClassicBoard = () => {
     };
 
   const handleFaceClick = (): void => {
-    dispatch(setGameStateTo(GameStateEnum.none));
-    dispatch(setTimeTo(0));
     dispatch(setBombsCounterTo(10));
     dispatch(setCellsTo(generateCells(difficultyConfig(AppState.difficulty))));
+    dispatch(setGameStateTo(GameStateEnum.none));
     setCounter(0);
   };
 
@@ -230,7 +227,9 @@ const ClassicBoard = () => {
       dispatch(
         setCellsTo(generateCells(difficultyConfig(AppState.difficulty)))
       );
+      dispatch(setTimeTo(0));
       dispatch(setBombsCounterTo(AppState.config.NO_OF_BOMBS));
+      dispatch(setGameStateTo(GameStateEnum.none));
       setCounter(1);
     }
 

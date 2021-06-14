@@ -12,13 +12,13 @@ export const difficultyConfig = (value: string) => {
       return {
         MAX_COLS: 12,
         MAX_ROWS: 12,
-        NO_OF_BOMBS: 18,
+        NO_OF_BOMBS: 3,
       };
     case DifficultyValueEnum.hard:
       return {
         MAX_COLS: 16,
         MAX_ROWS: 16,
-        NO_OF_BOMBS: 28,
+        NO_OF_BOMBS: 33,
       };
   }
 };

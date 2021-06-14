@@ -25,3 +25,28 @@ export const ModalButton = styled.button`
     transition: all 0.2s ease-in-out;
   }
 `;
+
+export const HighScoreButton = styled.button`
+  width: 15rem;
+  margin-left: 3rem;
+  height: 6rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  border: none;
+  background: #428bca;
+  color: #fff;
+  text-transform: uppercase;
+
+  @keyframes changeColor {
+    from {
+      background-color: #00a0d6;
+      color: white;
+    }
+    to {
+      background-color: #c2c2c2;
+      color: black;
+    }
+  }
+
+  animation: changeColor 4s infinite alternate;
+`;

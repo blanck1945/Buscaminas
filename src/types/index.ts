@@ -54,3 +54,10 @@ export interface GameConfig {
   MAX_COLS: string;
   NO_OF_BOMBS: string;
 }
+
+export interface ScoreType {
+  _id: string;
+  time: number;
+  player: string;
+  difficulty: string;
+}

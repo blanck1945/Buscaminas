@@ -19,13 +19,3 @@ export const JungleHeaderDiv = styled.div`
   justify-content: space-between;
   padding: 1rem 1.2rem;
 `;
-
-export const JungleBodyDiv = styled.div`
-  ${({ theme }) => {
-    return theme.setBorderMixin(theme.lGreen, theme.mGreen);
-  }}
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: repeat(9, 1fr);
-  margin-top: 1.6rem;
-`;

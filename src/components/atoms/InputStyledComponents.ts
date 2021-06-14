@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 export const InputDiv = styled.div`
   width: 100%;
-  min-height: 22%;
-  background-color: beige;
+  min-height: 17%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,10 +10,9 @@ export const InputDiv = styled.div`
 `;
 
 export const ErrorSpan = styled.span`
-  background-color: red;
+  background-color: tomato;
   color: white;
-  font-size: 1.3rem;
-  height: 1.6rem;
+  font-size: 1.5rem;
   width: 60%;
   text-align: center;
   margin-left: auto;
