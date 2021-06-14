@@ -94,7 +94,7 @@ const Modal = ({ func, closeModal }: ModalProps) => {
       {GameState.gameState === GameStateEnum.won ? (
         <h3>{AppState.player} Ganaste</h3>
       ) : (
-        <h3>{AppState.player} Intantalo de Nuevo</h3>
+        <h3>{AppState.player} Intentalo de Nuevo</h3>
       )}
       <div>
         <ModalButton onClick={() => backToMenu()}>Volver al menu</ModalButton>
