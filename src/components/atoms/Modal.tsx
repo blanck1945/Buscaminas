@@ -29,43 +29,45 @@ const Modal = ({ func, closeModal }: ModalProps) => {
   const [highScore, setHighScore] = useState<boolean>(false);
 
   useEffect(() => {
-    if (GameState.gameState === GameStateEnum.won) {
-      setHighScore(false);
-      const checkHighScore = async () => {
-        const newHighScore = AppState.scores[AppState.difficulty].filter(
-          (el: ScoreType) => {
-            return el.time > GameState.time ? el : null;
-          }
-        );
+    const postScore = async () => {
+      try {
+        const score = {
+          time: GameState.time,
+          player: AppState.player,
+          difficulty: AppState.difficulty,
+        };
 
-        if (
-          newHighScore.length !== 0 ||
-          AppState.scores[AppState.difficulty].length !== 3
-        ) {
-          try {
-            const score = {
-              time: GameState.time,
-              player: AppState.player,
-              difficulty: AppState.difficulty,
-            };
+        const res = await axios({
+          method: "POST",
+          url: Router.mongoURL + paths.create,
+          data: score,
+        });
 
-            const res = await axios({
-              method: "POST",
-              url: Router.mongoURL + paths.create,
-              data: score,
-            });
-
-            if (res.data.complete) {
-              setHighScore(true);
-              const data = await AxiosFetcher(Router.mongoURL + paths.scores);
-              dispatch(setScoresTo(data));
-            }
-          } catch (err) {
-            console.error(err);
-          }
+        if (res.data.complete) {
+          setHighScore(true);
+          const data = await AxiosFetcher(paths.scores);
+          dispatch(setScoresTo(data));
         }
-      };
-      checkHighScore();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (GameState.gameState === GameStateEnum.won) {
+      const newHighScore = AppState.scores[AppState.difficulty].filter(
+        (el: ScoreType) => {
+          return el.time > GameState.time ? el : null;
+        }
+      );
+
+      if (
+        newHighScore.length !== 0 ||
+        AppState.scores[AppState.difficulty].length !== 3
+      ) {
+        if (!highScore) {
+          postScore();
+        }
+      }
     }
   }, [
     GameState.gameState,
@@ -73,6 +75,7 @@ const Modal = ({ func, closeModal }: ModalProps) => {
     AppState.scores,
     GameState.time,
     AppState.player,
+    highScore,
     dispatch,
   ]);
 
