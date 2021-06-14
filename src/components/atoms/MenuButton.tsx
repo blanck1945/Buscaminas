@@ -9,7 +9,6 @@ export const DifficultyButton = styled.button`
   width: 25%;
   height: 4rem;
   border-radius: 0.5rem;
-  color: white;
   font-size: 1.5rem;
   cursor: pointer;
 `;
@@ -30,7 +29,9 @@ const MenuButton = ({ type, refValue, content }: MenuButtonProps) => {
       return (
         <DifficultyButton
           style={{
-            backgroundColor: AppState.difficulty === refValue ? "blue" : "grey",
+            color: AppState.difficulty === refValue ? "white" : "black",
+            backgroundColor:
+              AppState.difficulty === refValue ? "#204060" : "#d1e0e0",
           }}
           onClick={() => dispatch(setDifficultyTo(refValue))}
         >
@@ -41,8 +42,9 @@ const MenuButton = ({ type, refValue, content }: MenuButtonProps) => {
       return (
         <DifficultyButton
           style={{
+            color: StylesState.boardStyle === refValue ? "white" : "black",
             backgroundColor:
-              StylesState.boardStyle === refValue ? "blue" : "grey",
+              StylesState.boardStyle === refValue ? "#204060" : "#d1e0e0",
           }}
           onClick={() => dispatch(setBoardStyleTo(refValue))}
         >

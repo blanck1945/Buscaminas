@@ -50,9 +50,11 @@ export const ReduxBtn = styled.button`
   margin: auto;
   transition: all 0.2s ease-in-out;
 
-  &:hover {
-    background-color: tomato;
-    color: ${({ theme }) => theme.white};
+  @media (min-width: 600px) {
+    &:hover {
+      background-color: tomato;
+      color: ${({ theme }) => theme.white};
+    }
   }
 `;
 

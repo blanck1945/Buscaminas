@@ -1,4 +1,4 @@
-import "./styes/global.scss";
+import "./styles/global.scss";
 import Input from "./components/atoms/Input";
 import ClassicBoard from "./components/ClassicBoard";
 import { useDispatch, useSelector } from "react-redux";
@@ -70,7 +70,7 @@ const App = () => {
             <h2>Seleccionar Dificultad</h2>
             <DifficultyButtonDiv>
               {DifficultyArr.map((btn: any, index: number) => {
-                return <MenuButton {...btn} />;
+                return <MenuButton key={index} {...btn} />;
               })}
             </DifficultyButtonDiv>
           </DifficultyDiv>
@@ -78,7 +78,7 @@ const App = () => {
             <h2>Seleccionar Estilo</h2>
             <DifficultyButtonDiv>
               {StylesArr.map((btn: any, index: number) => {
-                return <MenuButton {...btn} />;
+                return <MenuButton key={index} {...btn} />;
               })}
             </DifficultyButtonDiv>
           </DifficultyDiv>

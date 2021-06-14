@@ -3,11 +3,15 @@ import styled from "styled-components";
 export const ScoreBoard = styled.div`
   background-color: #24478f;
   height: 100%;
-  width: 100%;
+  width: 100vw;
   position: fixed;
   z-index: 5;
   top: 7rem;
+  right: 0rem;
   padding-top: 5rem;
+  @media (max-width: 600px) {
+    top: 10rem;
+  }
 `;
 
 export const ScoreTitle = styled.h3`
@@ -39,7 +43,11 @@ export const ScoreGrid = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
-  grid-template-columns: 3% 10% 10% 10%;
+  grid-template-columns: 6% 14% 14% 14%;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 10% 22% 22% 22%;
+  }
 `;
 
 export const LoadingP = styled.p`

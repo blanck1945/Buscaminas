@@ -22,15 +22,15 @@ const Navigation = () => {
 
   return (
     <Nav>
+      <NavTitle onClick={() => (AppState.isRunning ? backToMenu() : null)}>
+        Buscaminas
+      </NavTitle>
       <LogoDiv>
         <ScoreTitlte onClick={() => setScoreModal(!scoreModal)}>
           Mejores Puntajes
         </ScoreTitlte>
         {scoreModal ? <ScoreModal /> : null}
       </LogoDiv>
-      <NavTitle onClick={() => (AppState.isRunning ? backToMenu() : null)}>
-        Buscaminas
-      </NavTitle>
     </Nav>
   );
 };

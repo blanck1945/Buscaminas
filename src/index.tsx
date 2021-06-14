@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store/store";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./styes/base/theme";
+import { theme } from "./styles/base/theme";
 import Navigation from "./components/layout/Navigation";
 
 ReactDOM.render(
